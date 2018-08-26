@@ -5,32 +5,32 @@ FSJS project 2 - List Filter and Pagination
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
 const studentNames= document.getElementsByClassName('student-item cf');
+const studentItems = studentNames.children;
 const page = document.querySelector('.page');
 const header = document.querySelector('.page-header');
-const totalStudents = studentNames.length;
 const pages = Math.ceil(studentNames.length/10);
-
-
+const newDiv = document.createElement('div');
+const a = document.createElement('a');
 // Create a function to hide all of the items in the list excpet for the ten you want to show
 // // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
 
 
-const showTenStudents= (page, studentNames) => {
+const showTenStudents= (page, students) => {
     let max = (page+1) * 10;
     let min = max - 10;
-    for (let i=0; i < studentNames.length; i ++) {
+    for (let i=0; i < students.length; i ++) {
         if (i >= min && i < max){
-            studentNames[i].style.display = 'block';
+            students[i].style.display = 'block';
         } else {
-            studentNames[i].style.display = 'none';
+            students[i].style.display = 'none';
         }
     }
 }
+
 showTenStudents(0,studentNames);
 
 // // Create and append the pagination links - Creating a function that can do this is a good approach
-const pagination = (pageNumber) => {
-    const newDiv = document.createElement('div');
+const pagination = () => {
     newDiv.className = ('pagination');
     const ul = document.createElement('ul');
     page.appendChild(newDiv);
@@ -44,16 +44,39 @@ const pagination = (pageNumber) => {
         a.href = "#"; 
     } 
 }
-pagination(pageNumber);
+pagination();
 
 // // Add functionality to the pagination bnumuttons so that they show and hide the correct items
 // // Tip: If you created a function above to show/hide list items, it could be helpful here
-// newDiv.addEventListener('click', () => {
-//      if (showTenStudents == 'none'){
-//      newDiv.textContent = 'Hide list';
-//      a.className.style.display = 'block';
-//     } else {
-//         newDiv.textContent = 'Show list';
-//         a.className.style.display = 'none';
-//     }
-//  }
+let pageNumber = 1;
+newDiv.addEventListener('click', (e) => {
+    let pageNumber = document.getElementsByTagName('a').textContent;
+    
+    // for (i=0; i<pageNumber.length; i++) {
+    //     e.target.className = 'active';
+    //     pageNumber[i].className = '';
+    // }
+
+    if (e.target.tagName = 'a') {
+        e.target.className = 'active';
+        pageNumber = e.target.textContent;
+        showTenStudents(pageNumber, studentNames);
+    } 
+    
+    // } else {
+
+    // }
+}); 
+    // const pageNumberClicked = event.target;
+    
+    
+        
+    // }
+    // if (pageNumberClicked) {
+    //    pageNumber.className = 'active';
+    //     showTenStudents (i, studentNames);
+    // }
+    // else {
+    //     pageNumber.className = '';
+    // }
+     
