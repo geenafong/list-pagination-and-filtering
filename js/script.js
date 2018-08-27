@@ -20,12 +20,9 @@ const a = document.createElement('a');
 
 //function using the parameters page and students
 const showTenStudents= (page, students) => {
-//variable to set the min and max amount of pages 
-    let max = (page+1) * 10;
-    let min = max - 10;
 //loop to only allow 10 students on the page 
     for (let i=0; i < students.length; i ++) {
-        if (i >= min && i < max){
+        if (i >= ((page * 10) -10) && i < ((page * 10) -1)) {
 //shows the 10 students
             students[i].style.display = 'block';
 //blocks all other students
@@ -34,11 +31,10 @@ const showTenStudents= (page, students) => {
         }
     }
 }
-
 //function that shows the first page of student names
-showTenStudents(0,studentNames);
+showTenStudents(1, studentNames);
 
-// // Create and append the pagination links - Creating a function that can do this is a good approach
+// Create and append the pagination links - Creating a function that can do this is a good approach
 const pagination = () => {
 //creates a new class in order to add the page numbers, this is the new div
     newDiv.className = ('pagination');
@@ -57,24 +53,26 @@ const pagination = () => {
         a.href = "#"; 
     } 
 }
+//runs the function to create the pagination links
 pagination();
 
 // // Add functionality to the pagination bnumuttons so that they show and hide the correct items
 // // Tip: If you created a function above to show/hide list items, it could be helpful here
 
 newDiv.addEventListener('click', (e) => {
-// creates a variable that brings up all anchor tags and its page number
-    let pageNumber = document.getElementsByTagName('a').textContent;
-//makes the anchor tags active when clicked by using an event listener
-    if (e.target.tagName = 'a') {
-        e.target.className = 'active';
-        pageNumber = e.target.textContent;
-        showTenStudents(pageNumber, studentNames);
-    } 
-}); 
-    
+    // creates a variable that brings up all anchor tags and its page number
+        let pageNumber = document.getElementsByTagName('a');
+    //makes the anchor tags active when clicked by using an event listener 
+        if (e.target.tagName = 'a') {
+            e.target.className = 'active';
+            pageNumber = e.target.textContent;
+            //shows the appropriate 10 pages per page using showTenStudents function
+            showTenStudents(pageNumber, studentNames);
+        }
+        //removes the active class when clicking another page
+        const active = document.querySelector('.active')
+        for (let i = 0; i < pageNumber.length; i += 1) {
+            active.classList.remove('active');
+        }
 
- // for (i=0; i<pageNumber.length; i++) {
-    //     e.target.className = 'active';
-    //     pageNumber[i].className = '';
-    // }
+}); 
