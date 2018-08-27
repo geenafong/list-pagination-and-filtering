@@ -22,7 +22,7 @@ const a = document.createElement('a');
 const showTenStudents= (page, students) => {
 //loop to only allow 10 students on the page 
     for (let i=0; i < students.length; i ++) {
-        if (i >= ((page * 10) -10) && i < ((page * 10) -1)) {
+        if (i >= ((page * 10) -10) && i < ((page * 10))) {
 //shows the 10 students
             students[i].style.display = 'block';
 //blocks all other students
